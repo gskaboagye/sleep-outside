@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -9,40 +9,41 @@
 <body>
 
   <header>
-  <nav class="navbar">
-    <div class="logo">Sleep Outside</div>
+    <nav class="navbar">
+      <div class="logo">Sleep Outside</div>
 
-    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
-      ☰
-    </button>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        ☰
+      </button>
 
-    <ul class="nav-links" id="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
-</header> 
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html" class="active" aria-current="page">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header> 
 
   <main>
     <h1>Welcome to Sleep Outside</h1>
     <p>Your outdoor adventure starts here.</p>
+    <a href="shop.html" class="btn">Shop Now</a>
   </main>
 
   <footer>
-     
-  <p>&copy; <span id="year"></span> Sleep Outside. All rights reserved.</p>
-
-
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
-
-
+    <p>&copy; <span id="year"></span> Sleep Outside. All rights reserved.</p>
+    <div class="social-links">
+      <a href="#" aria-label="Facebook">Fb</a>
+      <a href="#" aria-label="Instagram">Ig</a>
+      <a href="#" aria-label="Twitter">Tw</a>
+    </div>
   </footer> 
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 
   <script src="scripts/navMenu.js"></script>
 </body>
 </html>
-

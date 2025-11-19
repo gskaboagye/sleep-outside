@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => { 
   // Load header and footer dynamically
   loadFragment("header.html", "header");
   loadFragment("footer.html", "footer");
@@ -22,7 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const navLinks = document.getElementById("nav-links");
 
     if (menuToggle && navLinks) {
+      // Set initial ARIA attribute
+      menuToggle.setAttribute("aria-expanded", "false");
+
       menuToggle.addEventListener("click", () => {
+        const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+        menuToggle.setAttribute("aria-expanded", String(!isExpanded));
         navLinks.classList.toggle("show");
       });
     }
