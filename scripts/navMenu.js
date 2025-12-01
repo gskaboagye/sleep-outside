@@ -1,35 +1,71 @@
-document.addEventListener("DOMContentLoaded", () => { 
-  // Load header and footer dynamically
+document.addEventListener("DOMContentLoaded", () => {
   loadFragment("header.html", "header");
   loadFragment("footer.html", "footer");
 
+  /* ================================
+     DYNAMIC COMPONENT LOADER
+  ================================= */
   function loadFragment(url, targetTag) {
     fetch(url)
-      .then(res => res.text())
+      .then(response => response.text())
       .then(html => {
         document.querySelector(targetTag).outerHTML = html;
 
-        // Reinitialize menu toggle once header is injected
+        // Reinitialize navigation after header loads
         if (targetTag === "header") {
-          initMenuToggle();
+          initNavigation();
         }
       })
-      .catch(err => console.error(`Error loading ${url}:`, err));
+      .catch(error => console.error(`Error loading ${url}:`, error));
   }
 
-  function initMenuToggle() {
+  /* ================================
+     NAVIGATION MENU LOGIC
+  ================================= */
+  function initNavigation() {
     const menuToggle = document.getElementById("menu-toggle");
     const navLinks = document.getElementById("nav-links");
 
-    if (menuToggle && navLinks) {
-      // Set initial ARIA attribute
-      menuToggle.setAttribute("aria-expanded", "false");
+    if (!menuToggle || !navLinks) return;
 
-      menuToggle.addEventListener("click", () => {
-        const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
-        menuToggle.setAttribute("aria-expanded", String(!isExpanded));
-        navLinks.classList.toggle("show");
+    // Set default ARIA state
+    menuToggle.setAttribute("aria-expanded", "false");
+
+    menuToggle.addEventListener("click", () => {
+      const expanded = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!expanded));
+      navLinks.classList.toggle("show");
+    });
+
+    // Optional: Close menu when clicking a link (mobile)
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("show");
+        menuToggle.setAttribute("aria-expanded", "false");
       });
-    }
+    });
+
+    // Optional: Close menu if clicking outside
+    document.addEventListener("click", (e) => {
+      if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+        navLinks.classList.remove("show");
+        menuToggle.setAttribute("aria-expanded", "false");
+      }
+    });
   }
+
+  /* ================================
+     PAGE ANIMATIONS (BONUS)
+  ================================= */
+
+  // Fade in content on load
+  const mainContent = document.querySelector("main");
+  if (mainContent) {
+    mainContent.style.opacity = "0";
+    setTimeout(() => {
+      mainContent.style.transition = "opacity 1s ease-in-out";
+      mainContent.style.opacity = "1";
+    }, 100);
+  }
+
 });
